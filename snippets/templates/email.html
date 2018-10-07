@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+        Send Email By API
+</head>
+<br><br>
+<body>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label>Send to</label>
+        <input name="email" placeholder="enter an email address." type="text">
+    </div><br>
+    <div>
+        <label>Subject</label>
+        <input name="subject" type="text" placeholder="enter subject here.">
+    </div><br>
+    <div>
+        <label>Text</label>
+        <textarea name="text" rows="20" cols="100" placeholder="enter text here."></textarea>
+        <!--<input name="title" type="text" placeholder="enter text here.">-->
+    </div><br>
+    <button type="submit">Send</button>
+</form>
+</body>
+</html>

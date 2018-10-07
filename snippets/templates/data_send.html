@@ -1,0 +1,37 @@
+<! DOCTYPE html>
+
+<html>
+<head>
+    <title>
+        Write Data to send on API
+    </title>
+</head>
+<body>
+<form name="data" method="post">
+    {% csrf_token %}
+    <div>
+        <label>Title</label>
+        <input name="title" type="text">
+    </div><br>
+    <div>
+        <label>Code</label>
+        <input name="code" type="text">
+    </div><br>
+    <div>
+        <label>Linenos</label>
+        <input name="linenos" type="text">
+    </div><br>
+    <div>
+        <label>Language</label>
+        <input name="language" type="text">
+    </div><br>
+    <div>
+        <label>Style</label>
+        <input name="style" type="text">
+    </div><br>
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+
+</html>
