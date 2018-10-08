@@ -20,32 +20,16 @@ from snippets.models import Snippet
 from snippets.serializers import SnippetSerializer
 
 
-class SnippetView(mixins.CreateModelMixin,mixins.ListModelMixin,generics.GenericAPIView):
+class SnippetView(generics.ListCreateAPIView):
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request,*args,**kwargs)
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request,*args, kwargs)
-
-
-
-
-class SnippetDetails(mixins.RetrieveModelMixin,mixins.DestroyModelMixin,mixins.UpdateModelMixin,generics.GenericAPIView):
+class SnippetDetails(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
 
-    def get(self,request,*args,**kwargs):
-        return self.retrieve(request,*args,**kwargs)
-
-    def put(self,request,*args,**kwargs):
-        return self.update(request,*args,**kwargs)
-
-    def delete(self,request,*args, **kwargs):
-        return self.delete(request,*args,**kwargs)
 
 
 
