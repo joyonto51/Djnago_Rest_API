@@ -1,21 +1,21 @@
 import requests, sendgrid
-import os
+from rest_framework import status, mixins
 from sendgrid.helpers.mail import *
 
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
-
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic.base import View
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.six import  BytesIO
+from django.views.generic.base import View
+
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 
 from snippets.models import Snippet
 
-from django.utils.six import  BytesIO
 from snippets.serializers import SnippetSerializer
 
 
@@ -26,17 +26,17 @@ class SnippetView(APIView):
     def get(self, request, format=None):
         snippets = Snippet.objects.all()
         serializer = SnippetSerializer(snippets, many=True)
-        seri = JSONRenderer().render(serializer.data)
-        ser = BytesIO(seri)
-        return Response(JSONParser().parse(ser))
+        # seri = JSONRenderer().render(serializer.data)
+        # ser = BytesIO(seri)
+        return Response(serializer.data)
 
     def post(self, request, format=None):
 
         serializer = SnippetSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -45,37 +45,38 @@ class SnippetDetails(APIView):
     Retrieve, update or delete a code snippet.
     """
     def get(self,request,*args,**kwargs):
-        try:
-            pk = kwargs['pk']
-            snippet = Snippet.objects.get(pk=pk)
-        except Snippet.DoesNotExist:
-            return HttpResponse(status=404)
+        snippet = self.snippet(kwargs)
 
         serializer = SnippetSerializer(snippet)
+        print(serializer.data)
         return Response(serializer.data)
 
-    def post(self,request,*args,**kwargs):
-        try:
-            pk = kwargs['pk']
-            snippet = Snippet.objects.get(pk=pk)
-        except Snippet.DoesNotExist:
-            return HttpResponse(status=404)
-
+    def put(self,request,*args,**kwargs):
+        snippet = self.snippet(kwargs)
         serializer = SnippetSerializer(snippet, data=request.data)
-        print(request.data)
+
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self,request,*args, **kwargs):
-        pk = kwargs['pk']
-        snippet = Snippet.objects.get(pk=pk)
+        snippet = self.snippet(kwargs)
         snippet.delete()
         try:
             return HttpResponseRedirect(reverse('snippet_list'))
         except:
             return HttpResponse(status=204)
+
+    def snippet(self,kwargs):
+        try:
+            pk = kwargs['pk']
+            snippet = Snippet.objects.get(pk=pk)
+            return snippet
+
+        except Snippet.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 
 # class RestApiResponse(APIView):
