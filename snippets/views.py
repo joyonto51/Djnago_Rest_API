@@ -28,9 +28,3 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class ApiRoot(APIView):
-    def get(self, request, format=None):
-        return Response({
-            'users': reverse('snippet-list', request=request, format=format),
-            'snippets': reverse('user-list',request=request, format=format)
-        })
