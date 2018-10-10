@@ -1,17 +1,38 @@
 from django.conf.urls import url
+from django.urls import include, path
 from rest_framework.urlpatterns import format_suffix_patterns
-from snippets.views import SnippetList, SnippetDetails, UserList, UserDetail, ApiRoot, SnippetHightlight
+from snippets.views import ApiRoot, SnippetViewSet, UserViewSet
+from rest_framework import renderers
+from rest_framework.routers import DefaultRouter
+
+snippet_list = SnippetViewSet.as_view({'get': 'list', 'post': 'create'})
+
+snippet_detail = SnippetViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+snippet_highlight = SnippetViewSet.as_view({
+    'get': 'highlight'
+}, renderer_classes=[renderers.StaticHTMLRenderer])
+user_list = UserViewSet.as_view({
+    'get': 'list'
+})
+user_detail = UserViewSet.as_view({
+    'get': 'retrieve'
+})
 
 urlpatterns = [
-    url(r'^$', ApiRoot.as_view()),
+    path('', ApiRoot.as_view()),
 
-    url(r'^snippets/$', SnippetList.as_view(), name='snippet-list'),
-    url(r'^snippets/(?P<pk>[0-9]+)/$', SnippetDetails.as_view(), name='snippet-detail'),
+    path('snippets/', snippet_list, name='snippet-list'),
+    path('snippets/<int:pk>/', snippet_detail, name='snippet-detail'),
 
-    url(r'^users/$', UserList.as_view(), name='user-list'),
-    url(r'^users/(?P<pk>[0-9]+)/$', UserDetail.as_view(), name='user-detail'),
+    path('users/', user_list, name='user-list'),
+    path('users/<int:pk>/', user_detail, name='user-detail'),
 
-    url(r'^snippets/(?P<pk>[0-9]+)/highlight/$', SnippetHightlight.as_view(), name='snippet-highlight'),
+    path('snippets/<int:pk>/highlight/', snippet_highlight, name='snippet-highlight'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
