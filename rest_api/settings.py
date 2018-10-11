@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'snippets.apps.SnippetsConfig',
     'email_api',
+    'sengrid_api',
 ]
 
 MIDDLEWARE = [
