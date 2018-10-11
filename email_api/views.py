@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
+from email_api.models import Email
 from rest_api.settings import EMAIL_HOST_USER
 from .serializers import EmailSerializers
 
@@ -22,7 +23,10 @@ class EmailSendAPIView(APIView):
         serializers = EmailSerializers(data=request.data)
 
         if serializers.is_valid():
-            serializers.save()
+            email_object = serializers.save()
+            email = Email.objects.get(id=email_object.id)
+            email.from_email = EMAIL_HOST_USER
+            email.save()
 
             email = serializers.data['to_email']
             subject = serializers.data['email_subject']
