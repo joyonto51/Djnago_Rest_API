@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'snippets.apps.SnippetsConfig',
     'email_api',
-    'sengrid_api',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +126,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'aarosh.itsd@gmail.com'
+EMAIL_HOST_PASSWORD = 'itsd321#'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+SERVER_ADDR = 'http://172.104.166.132:8500'
+ACCOUNT_LOGOUT_ON_GET = True

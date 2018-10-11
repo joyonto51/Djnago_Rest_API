@@ -1,19 +1,19 @@
 import requests
-import sendgrid
+
+from django.core.mail import send_mail
 from django.views import View
 from rest_framework.response import Response
-from sendgrid.helpers.mail import *
-
 from rest_framework.views import APIView
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+
+from rest_api.settings import EMAIL_HOST_USER
 from .serializers import EmailSerializers
 
 
-
-class EmailSendAPI(APIView):
+class EmailSendAPIView(APIView):
     def get(self,request,*args,**kwargs):
         serializers = EmailSerializers()
         return Response(serializers.data)
@@ -22,29 +22,24 @@ class EmailSendAPI(APIView):
         serializers = EmailSerializers(data=request.data)
 
         if serializers.is_valid():
-            print(serializers.data)
+            serializers.save()
+
             email = serializers.data['to_email']
             subject = serializers.data['email_subject']
             body = serializers.data['email_body']
-            print(email,subject,body)
 
-            sg = sendgrid.SendGridAPIClient(apikey='SG.OIISEHmmQxOahwt0XLZ_AA.Y - iqm_wajdHnJu6P2uGEphJNfM0nTUNBbxfvn3HaBsY')
-            from_email = Email("aarosh.itsd@gmail.com")
-            to_email = Email(email)
+            self.send_email(subject,body,recipients=[email,])
 
-            content = Content("text/plain", body)
-            mail = Mail(from_email, subject, to_email, content)
-            response = sg.client.mail.send.post(request_body=mail.get())
+        return Response("Email has been sent")
 
-            serializers.from_email = from_email
-            serializers.save()
-            print('Email has been sent')
+    def send_email(self, subject='', message='', recipients=''):
+        mail = send_mail(subject, message, EMAIL_HOST_USER, recipients, fail_silently=True)
 
-            print(response.status_code)
-            print(response.body)
-            print(response.headers)
+        if mail == 0:
+            print('Sending mail failed.')
+            print(message)
 
-        return Response("it's okay")
+        return
 
 
 
@@ -60,6 +55,5 @@ class EmailSendView(View):
         data = {"to_email":email, "email_subject":subject, "email_body": body}
 
         api = requests.post(url='http://127.0.0.1:8000/email/api/', data=data)
-        print(api)
 
         return HttpResponseRedirect(reverse('email_send'))
