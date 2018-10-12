@@ -6,3 +6,5 @@ class Email(models.Model):
     email_subject = models.CharField(max_length=100)
     email_body = models.TextField(max_length=500)
 
+    def __str__(self):
+        return self.email_subject
