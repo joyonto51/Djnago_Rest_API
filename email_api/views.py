@@ -1,6 +1,5 @@
 import requests
-
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 from django.views import View
 from django.http import HttpResponseRedirect
@@ -11,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from email_api.models import Email
+from email_api.models import EmailBox
 from rest_api.settings import EMAIL_HOST_USER
 from .serializers import EmailSerializers
 
@@ -26,11 +25,13 @@ class EmailAPIView(APIView):
         username = request.data['username']
         password = request.data['password']
 
-        user = User.objects.get(id=2)
 
-        if (username==user.username and password==user.password) and serializers.is_valid():
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None and serializers.is_valid():
             email_object = serializers.save()
-            email = Email.objects.get(id=email_object.id)
+            email = EmailBox.objects.get(id=email_object.id)
+            email.sender = user
             email.from_email = EMAIL_HOST_USER
             email.save()
 
@@ -45,7 +46,7 @@ class EmailAPIView(APIView):
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
 
-    def send_api_mail(self, subject='', message='', recipients=''):
+    def send_api_mail(self, subject='', message='', recipients=[]):
         mail = send_mail(subject, message, EMAIL_HOST_USER, recipients, fail_silently=True)
 
         if mail == 0:
@@ -65,9 +66,7 @@ class EmailSendView(View):
         subject = request.POST.get('subject')
         body = request.POST.get('text')
 
-        user = User.objects.get(username='joyonto')
-
-        data = {"username":user.username, "password":user.password, "to_email":email, "email_subject":subject, "email_body":body}
+        data = {"username":'joyonto', "password":'django123', "to_email":email, "email_subject":subject, "email_body":body}
 
         api = requests.post(url='http://127.0.0.1:8000/email/api/', data=data)
 
