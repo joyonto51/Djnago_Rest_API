@@ -4,13 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/rest_api/urls.py" description="from django.contrib import admin&#10;from rest_framewo..." line="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fc6fd25-d587-4d19-af65-f86a43f1fcc9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/email_api/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/email_api/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/email_api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/email_api/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/email_api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/email_api/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="5fc6fd25-d587-4d19-af65-f86a43f1fcc9" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,8 +118,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/email_api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="30" column="48" lean-forward="true" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
+            <state relative-caret-position="114">
+              <caret line="28" column="24" lean-forward="true" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -351,7 +345,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1366" height="745" extended-state="6" />
+    <frame x="0" y="23" width="1366" height="745" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21635687" />
@@ -625,16 +619,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/email_api/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rest_api/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -662,6 +646,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/email_api/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/email_api/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -674,8 +668,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/email_api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="30" column="48" lean-forward="true" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
+        <state relative-caret-position="114">
+          <caret line="28" column="24" lean-forward="true" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
