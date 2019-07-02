@@ -25,7 +25,7 @@ SECRET_KEY = 'a+wy(*xx8chldv4f1tt3cj2mc)7f069o7u!l%@zr75dq9(lhnt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.167',]
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'snippets.apps.SnippetsConfig',
     'email_api',
+    'attendance',
 ]
 
 MIDDLEWARE = [

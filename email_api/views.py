@@ -25,10 +25,9 @@ class EmailAPIView(APIView):
         username = request.data['username']
         password = request.data['password']
 
-
         user = authenticate(request, username=username, password=password)
 
-        if user is not None and serializers.is_valid():
+        if user and serializers.is_valid():
             email_object = serializers.save()
             email = EmailBox.objects.get(id=email_object.id)
             email.sender = user

@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('snippets.urls')),
     path('email/', include('email_api.urls')),
+    path('attendance/', include('attendance.urls')),
     path('api_auth/', include('rest_framework.urls')),
     path('schema/', schema_view),
 ]
